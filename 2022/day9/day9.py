@@ -2,22 +2,10 @@ commands = open("input.txt", "r").read().splitlines()
 
 rope = []
 rope_length = 10
-
 all_seen = {(0,0)}
 
 for i in range(0,rope_length):
     rope.append((0,0))
-
-def visualize():
-    for y in range(-20,20):
-        for x in range(-20,20):
-            char = "."
-            for i in range(rope_length-1, -1, -1):
-                if rope[i] == (x,y):
-                    char = i
-            print(char, end="")
-        print()
-    print()
 
 def move(point,dir):
     if dir == "R":
@@ -31,7 +19,6 @@ def move(point,dir):
 
 
 for command in commands:
-    print("Command: " + command)
     dir,length = command.split(" ")
     for i in range(0, int(length)):
         rope[0] = move(rope[0], dir)
@@ -59,10 +46,5 @@ for command in commands:
             if i == rope_length -1:
                 all_seen.add(rope[i])
                     
-
-    #     visualize()
-    # input("enter")
-
-
 print(len(all_seen))
 

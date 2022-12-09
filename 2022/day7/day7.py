@@ -1,6 +1,5 @@
 terminal_output = open("input.txt", "r").read().splitlines()
 
-
 sum100k = 0
 
 class Node:
@@ -11,7 +10,6 @@ class Node:
         self.nodes = {}
 
     def addNode(self, node):
-        print("Adding {} ({}) to node {}".format(node.name, node.size, self.name))
         self.nodes[node.name] = node
 
     def containsNode(self, name):
@@ -21,7 +19,6 @@ class Node:
         total_size = 0
         for node in self.nodes:
             total_size += self.nodes[node].getSize()
-        # print("Size of {} is {} ( {} + {} )".format(self.name, self.size + total_size , self.size, total_size))
         return self.size + total_size 
 
 def find100k(node):
@@ -70,7 +67,6 @@ while (index < len(terminal_output)):
         while(not terminal_output[index+1][0] == "$"):
             index += 1
             (size, name) = terminal_output[index].split(" ")
-            print("{} ls line: {} - {} - {}".format(index, terminal_output[index], name, size))
             if size == "dir":
                 size = "0"
             if not current_dir.containsNode(name):

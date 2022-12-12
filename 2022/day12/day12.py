@@ -13,17 +13,17 @@ def find_shortest(start, grid, end):
     width, height =  len(grid[0]), len(grid)
     seen = set(start)
     queue = collections.deque()
-    queue.append((0, start))
+    queue.append(([start], start))
     while queue:
-        distance, (x, y) = queue.popleft()
+        path, (x, y) = queue.popleft()
         if (x, y) == end:
-            return distance
+            return path
         for dx, dy in directions:
             new_x, new_y = x + dx, y + dy
             if new_x < 0 or new_x >= width or new_y < 0 or new_y >= height or (new_x, new_y) in seen:
                 continue
             if (valueOf(grid[new_y][new_x]) - valueOf(grid[y][x])) < 2:
-                queue.append((distance + 1, (new_x, new_y)))
+                queue.append((path + [(new_x, new_y)], (new_x, new_y)))
                 seen.add((new_x,new_y))
 
 grid = open("input.txt", "r").read().splitlines()
@@ -34,14 +34,14 @@ for y, line in enumerate(grid):
         if char == end:
             endpos = (x, y)
 
-print("Antwoord 1: {}".format(find_shortest(startpos, grid, endpos)))
+print("Antwoord 1: {}".format(len(find_shortest(startpos, grid, endpos))-1))
 
 shortest_distance = 10000
 for y, line in enumerate(grid):
     for x, char in enumerate(line):
         if char == "a":
             try:
-                distance = find_shortest((x,y), grid, endpos)
+                distance = len(find_shortest((x,y), grid, endpos)) - 1
                 if distance < shortest_distance:
                     shortest_distance = distance
             except:

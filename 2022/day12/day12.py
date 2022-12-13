@@ -1,4 +1,6 @@
 import collections
+from colorama import Fore
+from colorama import Style
 
 start, end = "S", "E"
 def valueOf(char):
@@ -34,7 +36,16 @@ for y, line in enumerate(grid):
         if char == end:
             endpos = (x, y)
 
-print("Antwoord 1: {}".format(len(find_shortest(startpos, grid, endpos))-1))
+path = find_shortest(startpos, grid, endpos)
+
+for y, line in enumerate(grid):
+    for x, char in enumerate(line):
+        if (x,y) in path:
+            print(f"{Fore.GREEN}{grid[y][x]}{Style.RESET_ALL}", end="")
+        else:
+            print(grid[y][x], end="")
+    print()
+print("Antwoord 1: {}".format(len(path)-1))
 
 shortest_distance = 10000
 for y, line in enumerate(grid):
